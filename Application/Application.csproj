@@ -9,11 +9,19 @@
     <ItemGroup>
       <Folder Include="Common\Behaviors\" />
       <Folder Include="Common\Exceptions\" />
-      <Folder Include="DTOs\" />
-      <Folder Include="Features\Products\Commands\" />
-      <Folder Include="Features\Products\Handlers\" />
-      <Folder Include="Features\Products\Queries\" />
       <Folder Include="Features\Products\Validators\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="13.0.1" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.1" />
+      <PackageReference Include="MediatR" Version="12.4.1" />
+      <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Domain\Domain.csproj" />
+      <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
