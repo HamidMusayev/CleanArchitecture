@@ -1,15 +1,7 @@
 @API_HostAddress = http://localhost:5188
 @id = variable value
 
-GET {{API_HostAddress}}/api/product/{{id}}/
+GET {{API_HostAddress}}/api/product
 Accept: application/json
 
 ###
-
-POST {{API_HostAddress}}/product
-Content-Type: application/json
-
-{
-  "name": "notepad",
-  "price": 9.3
-}
