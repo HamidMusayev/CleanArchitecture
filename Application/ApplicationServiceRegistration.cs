@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Application.Common.Behaviors;
-using Application.Features.Products.Validators;
 using Application.Mappings;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -24,7 +23,7 @@ public static class ApplicationServiceRegistration
 
         // Register Validation Behavior for MediatR Pipeline
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-        
+
         return services;
     }
 }

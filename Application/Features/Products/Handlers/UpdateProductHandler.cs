@@ -1,28 +1,19 @@
 ﻿using Application.Features.Products.Commands;
 using AutoMapper;
+using Domain.Entities;
 using Infrastructure.Persistence;
 using MediatR;
 
 namespace Application.Features.Products.Handlers;
 
-public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, bool>
+public class UpdateProductHandler(AppDbContext context, IMapper mapper) : IRequestHandler<UpdateProductCommand, bool>
 {
-    private readonly AppDbContext _context;
-    private readonly IMapper _mapper;
-
-    public UpdateProductHandler(AppDbContext context, IMapper mapper)
-    {
-        _context = context;
-        _mapper = mapper;
-    }
-
     public async Task<bool> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await _context.Products.FindAsync(request.Dto.Id);
-        if (product == null) return false;
+        var product = mapper.Map<Product>(request.Dto);
 
-        _mapper.Map(request.Dto, product);
-        await _context.SaveChangesAsync();
+        context.Update(product);
+        await context.SaveChangesAsync();
 
         return true;
     }
