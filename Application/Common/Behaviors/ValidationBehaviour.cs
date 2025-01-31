@@ -3,27 +3,28 @@ using MediatR;
 
 namespace Application.Common.Behaviors;
 
-public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {
-    private readonly IValidator<TRequest> _validator;
+    private readonly IEnumerable<IValidator<TRequest>> _validators;
 
-    public ValidationBehavior(IValidator<TRequest> validator)
+    public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
     {
-        _validator = validator;
+        _validators = validators;
     }
 
-    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
     {
-        // Validate the request
-        var validationResult = await _validator.ValidateAsync(request, cancellationToken);
-        
-        if (!validationResult.IsValid)
+        // Skip validation if no validator is registered
+        if (!_validators.Any()) return await next();
+
+        foreach (var validator in _validators)
         {
-            // Throw validation exception if the request is invalid
-            throw new ValidationException(validationResult.Errors);
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+            if (!validationResult.IsValid)
+                throw new ValidationException(validationResult.Errors);
         }
 
-        // Proceed to the next handler if valid
         return await next();
     }
 }
