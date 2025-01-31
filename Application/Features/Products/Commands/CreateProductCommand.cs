@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Application.Features.Products.Commands;
 
-public record CreateProductCommand(string Name, decimal Price) : IRequest<ProductDto>;
+public record CreateProductCommand(CreateProductDto Dto) : IRequest<ProductDto>;

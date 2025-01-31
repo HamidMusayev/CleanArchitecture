@@ -1,10 +1,5 @@
 using Application;
-using Application.Features.Products.Handlers;
-using Application.Mappings;
 using Infrastructure;
-using Infrastructure.Persistence;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

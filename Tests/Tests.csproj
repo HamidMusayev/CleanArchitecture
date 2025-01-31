@@ -7,9 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="API.Tests\" />
-      <Folder Include="Application.Tests\" />
-      <Folder Include="Infrastructure.Tests\" />
+        <Folder Include="API.Tests\"/>
+        <Folder Include="Application.Tests\"/>
+        <Folder Include="Infrastructure.Tests\"/>
     </ItemGroup>
 
 </Project>

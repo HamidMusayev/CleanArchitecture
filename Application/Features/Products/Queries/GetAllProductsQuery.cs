@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Application.Features.Products.Queries;
 
-public record GetAllProductsQuery() : IRequest<List<ProductDto>>;
+public record GetAllProductsQuery : IRequest<List<ProductDto>>;

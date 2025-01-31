@@ -11,20 +11,19 @@ namespace API.Controllers;
 [ApiController]
 public class ProductController : ControllerBase
 {
-    private readonly IMediator _mediator;
     private readonly IMapper _mapper;
+    private readonly IMediator _mediator;
 
     public ProductController(IMediator mediator, IMapper mapper)
     {
         _mediator = mediator;
         _mapper = mapper;
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateProductDto productDto)
     {
-        var command = _mapper.Map<CreateProductCommand>(productDto);
-        var result = await _mediator.Send(command);
+        var result = await _mediator.Send(new CreateProductCommand(productDto));
         return Ok(result);
     }
 
@@ -47,7 +46,7 @@ public class ProductController : ControllerBase
     {
         if (id != dto.Id) return BadRequest();
 
-        var success = await _mediator.Send(new UpdateProductCommand(dto.Id, dto.Name, dto.Price));
+        var success = await _mediator.Send(new UpdateProductCommand(dto));
         return success ? NoContent() : NotFound();
     }
 
