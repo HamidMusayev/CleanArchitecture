@@ -1,18 +1,17 @@
 ﻿using Application.DTOs;
 using Application.Features.Products.Queries;
 using AutoMapper;
-using Infrastructure.Persistence;
+using Infrastructure.Repositories.Interfaces;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Products.Handlers;
 
-public class GetAllProductsHandler(AppDbContext context, IMapper mapper)
+public class GetAllProductsHandler(IProductRepository productRepository, IMapper mapper)
     : IRequestHandler<GetAllProductsQuery, List<ProductDto>>
 {
     public async Task<List<ProductDto>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
     {
-        var products = await context.Products.ToListAsync();
+        var products = await productRepository.GetListAsync();
         return mapper.Map<List<ProductDto>>(products);
     }
 }

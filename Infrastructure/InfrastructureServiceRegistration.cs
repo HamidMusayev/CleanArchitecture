@@ -1,4 +1,7 @@
-﻿using Infrastructure.Persistence;
+﻿using Infrastructure.Persistence.EntityFramework;
+using Infrastructure.Repositories.Implementations.EntityFramework;
+using Infrastructure.Repositories.Interfaces;
+using Infrastructure.Repositories.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,8 +17,12 @@ public static class InfrastructureServiceRegistration
         services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
+
+        // Register Unit of work
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+
         // Register Repositories
-        //services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
 
         return services;
     }

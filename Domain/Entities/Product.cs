@@ -1,8 +1,10 @@
-﻿namespace Domain.Entities;
+﻿using Domain.Common;
 
-public class Product
+namespace Domain.Entities;
+
+public class Product : IEntity
 {
-    public int Id { get; set; }
     public required string Name { get; set; }
     public required decimal Price { get; set; }
+    public Guid Id { get; set; }
 }

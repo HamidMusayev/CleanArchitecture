@@ -1,5 +1,5 @@
 ﻿namespace Infrastructure.Persistence;
 
-public class Configurations
+public class DataSeed
 {
 }

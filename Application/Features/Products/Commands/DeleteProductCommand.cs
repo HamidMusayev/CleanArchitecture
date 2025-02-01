@@ -2,4 +2,4 @@
 
 namespace Application.Features.Products.Commands;
 
-public record DeleteProductCommand(int Id) : IRequest<bool>;
+public record DeleteProductCommand(Guid Id) : IRequest<bool>;
